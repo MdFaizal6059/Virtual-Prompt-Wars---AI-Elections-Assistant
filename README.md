@@ -3,6 +3,8 @@
 ## Description
 VoterAssistAI is a lightweight, fully autonomous, AI-powered web application designed to help Indian voters (especially in Tamil Nadu) understand the election process, voting steps, timelines, and guidelines. 
 
+# It is built using Google Antigravity and deployed with GitHub
+
 Built entirely with Vanilla HTML, CSS, and JavaScript, it requires **zero installation, zero dependencies, and zero backend configuration**. It runs instantly in any modern web browser.
 
 ## Features
