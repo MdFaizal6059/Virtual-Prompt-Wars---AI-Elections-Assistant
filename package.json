@@ -1,0 +1,17 @@
+{
+  "name": "voter-assist-ai",
+  "version": "1.0.0",
+  "description": "Lightweight Elections Assistant",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "vitest": "^1.6.0"
+  }
+}

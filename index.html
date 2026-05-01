@@ -5,85 +5,117 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VoterAssistAI 🗳️ - AI Elections Assistant</title>
     <meta name="description" content="Helping Indian voters understand elections simply.">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .typing-dot { animation: typing 1.4s infinite ease-in-out both; }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typing { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+        
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
 </head>
-<body>
-    <div class="app-container">
-        <!-- Sidebar Navigation & Info -->
-        <aside class="sidebar" id="sidebar">
-            <header class="header">
-                <h1>VoterAssistAI <span class="icon">🗳️</span></h1>
-                <p class="subtitle">Helping Indian voters understand elections simply</p>
-            </header>
+<body class="bg-gray-50 h-screen flex overflow-hidden">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="bg-white w-80 h-full shadow-lg flex flex-col absolute z-20 md:relative transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out" aria-label="Sidebar Navigation">
+        <header class="p-6 border-b border-gray-100">
+            <h1 class="text-2xl font-bold text-indigo-700 flex items-center gap-2">VoterAssistAI <span aria-hidden="true">🗳️</span></h1>
+            <p class="text-sm text-gray-500 mt-1">Helping Indian voters understand elections simply.</p>
+        </header>
+        
+        <div class="flex-1 overflow-y-auto p-6 space-y-6 no-scrollbar">
+            <section>
+                <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Quick Actions</h3>
+                <div class="grid grid-cols-1 gap-2">
+                    <button class="action-btn w-full text-left px-4 py-2 rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-medium" data-query="How do I vote?" aria-label="Ask how to vote">📝 How to Vote</button>
+                    <button class="action-btn w-full text-left px-4 py-2 rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-medium" data-query="Steps in election process" aria-label="Ask about election process">📊 Election Process</button>
+                    <button class="action-btn w-full text-left px-4 py-2 rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-medium" data-query="First-time voter guide" aria-label="Ask for first-time voter guide">🌟 First-time Voter</button>
+                    <button class="action-btn w-full text-left px-4 py-2 rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-medium" data-query="Show Election Timeline" aria-label="Ask for election timeline">📅 Election Timeline</button>
+                    <button class="action-btn w-full text-left px-4 py-2 rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-medium" data-query="What is ECINET?" aria-label="Ask what is ECINET">💻 What is ECINET?</button>
+                </div>
+            </section>
+
+            <section>
+                <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Tamil Nadu Voter Guide</h3>
+                <ul class="space-y-2">
+                    <li><button class="link-btn w-full text-left text-sm text-gray-600 hover:text-indigo-600 focus:outline-none focus:underline flex items-center gap-2" data-query="Check voter list TN" aria-label="Check voter list Tamil Nadu">📋 Check Voter List</button></li>
+                    <li><button class="link-btn w-full text-left text-sm text-gray-600 hover:text-indigo-600 focus:outline-none focus:underline flex items-center gap-2" data-query="Find polling booth TN" aria-label="Find polling booth Tamil Nadu">📍 Find Polling Booth</button></li>
+                    <li><button class="link-btn w-full text-left text-sm text-gray-600 hover:text-indigo-600 focus:outline-none focus:underline flex items-center gap-2" data-query="Required documents TN" aria-label="Required documents Tamil Nadu">📄 Required Documents</button></li>
+                </ul>
+            </section>
             
-            <div class="scroll-content">
-                <div class="section quick-actions">
-                    <h3>Quick Actions</h3>
-                    <div class="action-grid">
-                        <button class="action-btn" data-query="How do I vote?">📝 How to Vote</button>
-                        <button class="action-btn" data-query="Steps in election process">📊 Election Process</button>
-                        <button class="action-btn" data-query="First-time voter guide">🌟 First-time Voter</button>
-                        <button class="action-btn" data-query="Show Election Timeline">📅 Election Timeline</button>
-                        <button class="action-btn" data-query="What is ECINET?">💻 What is ECINET?</button>
-                    </div>
+            <section class="mt-4 border-t border-gray-100 pt-4">
+                <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Polling Booth Map</h3>
+                <div class="rounded-lg overflow-hidden border border-gray-200 shadow-sm h-32">
+                    <iframe 
+                        src="https://maps.google.com/maps?q=Chennai,+Tamil+Nadu&t=&z=13&ie=UTF8&iwloc=&output=embed" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        title="Map of Chennai, Tamil Nadu polling area example"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
                 </div>
+                <p class="text-xs text-gray-400 mt-1 italic">Example mapping view</p>
+            </section>
+        </div>
 
-                <div class="section info-section">
-                    <h3>Tamil Nadu Voter Guide</h3>
-                    <ul class="guide-list">
-                        <li><button class="link-btn" data-query="Check voter list TN">📋 Check Voter List</button></li>
-                        <li><button class="link-btn" data-query="Find polling booth TN">📍 Find Polling Booth</button></li>
-                        <li><button class="link-btn" data-query="Required documents TN">📄 Required Documents</button></li>
-                    </ul>
-                </div>
+        <div class="p-4 bg-gray-50 border-t border-gray-100 text-xs text-gray-500 rounded-bl-lg">
+            <p><strong>Disclaimer:</strong> Educational purposes only. Based on ECI guidelines. We maintain complete neutrality.</p>
+        </div>
+    </aside>
 
-                <div class="disclaimer">
-                    <p><strong>Disclaimer:</strong> This information is for educational purposes only and based on official election guidelines. We maintain complete neutrality and do not promote any political party or candidate.</p>
-                </div>
-            </div>
-        </aside>
+    <!-- Overlay for mobile -->
+    <div id="overlay" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-10 hidden md:hidden transition-opacity" aria-hidden="true"></div>
 
-        <!-- Main Chat Interface -->
-        <main class="chat-container">
-            <div class="chat-header">
-                <button class="mobile-menu-btn" id="mobile-menu-btn">☰</button>
-                <div class="header-info">
-                    <h2>Election Assistant</h2>
-                    <div class="status">
-                        <span class="dot"></span> Online
-                    </div>
-                </div>
-            </div>
-            
-            <div class="chat-messages" id="chat-messages">
-                <div class="message bot intro-animation">
-                    <div class="avatar">🤖</div>
-                    <div class="bubble">
-                        <p><strong>Namaste! 🙏 I am VoterAssistAI.</strong></p>
-                        <p>I am here to help you understand the Indian election process simply.</p>
-                        <p>You can ask me questions about voting, ECINET, or select an option from the menu.</p>
-                    </div>
+    <!-- Main Chat Area -->
+    <main class="flex-1 flex flex-col h-full bg-white relative">
+        <header class="bg-white border-b border-gray-100 p-4 flex items-center shadow-sm z-10">
+            <button id="mobile-menu-btn" class="md:hidden mr-4 text-gray-500 hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded p-1" aria-label="Open Sidebar Menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+            <div>
+                <h2 class="text-lg font-bold text-gray-800">Election Assistant</h2>
+                <div class="flex items-center text-xs text-green-600 font-medium">
+                    <span class="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></span> Online
                 </div>
             </div>
+        </header>
 
-            <div class="chat-input-container">
-                <form id="chat-form">
-                    <input type="text" id="user-input" placeholder="Ask about elections, voting, ECINET..." autocomplete="off" required>
-                    <button type="submit" id="send-btn" aria-label="Send message">
-                        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="22" y1="2" x2="11" y2="13"></line>
-                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                        </svg>
-                    </button>
-                </form>
+        <div id="chat-messages" class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 bg-slate-50" aria-live="polite">
+            <!-- Intro Message -->
+            <div class="flex items-start gap-3">
+                <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-lg flex-shrink-0" aria-hidden="true">🤖</div>
+                <div class="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-gray-100 text-gray-800 max-w-[85%] md:max-w-md">
+                    <p class="mb-2"><strong>Namaste! 🙏 I am VoterAssistAI.</strong></p>
+                    <p class="mb-2">I am here to help you understand the Indian election process simply.</p>
+                    <p>You can ask me questions about voting, ECINET, or select an option from the menu.</p>
+                </div>
             </div>
-        </main>
-    </div>
-    
-    <!-- Mobile overlay -->
-    <div class="overlay" id="overlay"></div>
+        </div>
 
+        <div class="p-4 bg-white border-t border-gray-100">
+            <form id="chat-form" class="max-w-4xl mx-auto relative flex items-center">
+                <input type="text" id="user-input" class="w-full bg-gray-50 border border-gray-200 rounded-full pl-6 pr-14 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-gray-800 placeholder-gray-400" placeholder="Ask about elections, voting, ECINET..." autocomplete="off" required aria-label="Type your message here">
+                <button type="submit" id="send-btn" class="absolute right-2 p-2 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 shadow-sm flex items-center justify-center" aria-label="Send message">
+                    <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
+            </form>
+            <p class="text-center text-xs text-gray-400 mt-2">VoterAssistAI provides neutral, educational information based on ECI guidelines.</p>
+        </div>
+    </main>
+
+    <script src="logic.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
